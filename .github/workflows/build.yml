@@ -17,7 +17,17 @@ jobs:
         run: |
           unzip -o MusicPlayer.zip
           python3 -c 'import glob; [open(p,"w").write(open(p).read().replace("Package ","package ")) for p in glob.glob("**/*.kt", recursive=True)]'
-          python3 -c 'import glob, xml.etree.ElementTree as ET; ET.register_namespace("android", "http://schemas.android.com/apk/res/android"); [((t:=ET.parse(p)), [el.set("{http://schemas.android.com/apk/res/android}name", "android.app.Application") for el in t.getroot().findall("application")], t.write(p, encoding="utf-8", xml_declaration=True)) for p in glob.glob("**/AndroidManifest.xml", recursive=True)]'
+          python3 - << 'EOF'
+          import glob
+          for p in glob.glob("**/AndroidManifest.xml", recursive=True):
+              txt = open(p, encoding="utf-8", errors="ignore").read()
+              txt = txt.replace('android:name=".App"', 'android:name="android.app.Application"')
+              txt = txt.replace("android:name='.App'", 'android:name="android.app.Application"')
+              open(p, "w", encoding="utf-8").write(txt)
+              for line in txt.splitlines():
+                  if "android:name=" in line:
+                      print("MANIFEST LINE:", p, line.strip())
+          EOF
           
           
                     
