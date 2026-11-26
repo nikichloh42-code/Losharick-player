@@ -19,8 +19,8 @@ jobs:
       - name: Unpack project zip
         run: |
           unzip -o MusicPlayer.zip
-          python3 -c 'import glob; [open(p,"w").write(open(p).read().replace("Package ","package ")) for p in glob.glob("**/*.kt", recursive=True)]'
-                    python3 -c 'import glob; kts="\n".join(open(p,errors="ignore").read() for p in glob.glob("**/*.kt",recursive=True)); src=glob.glob("**/com/example/musicplayer",recursive=True); open(src[0]+"/App.kt","w").write("package com.example.musicplayer\n\nimport android.app.Application\n\nclass App : Application()\n") if src and "class App" not in kts else None'
+                    python3 -c 'import glob,os; m=glob.glob("**/MainActivity.kt",recursive=True); m and open(os.path.join(os.path.dirname(m[0]),"App.kt"),"w").write("package com.example.musicplayer\n\nimport android.app.Application\n\nclass App : Application()\n")'
+                  python3 -c 'import glob; kts="\n".join(open(p,errors="ignore").read() for p in glob.glob("**/*.kt",recursive=True)); src=glob.glob("**/com/example/musicplayer",recursive=True); open(src[0]+"/App.kt","w").write("package com.example.musicplayer\n\nimport android.app.Application\n\nclass App : Application()\n") if src and "class App" not in kts else None'
                     
   
 
