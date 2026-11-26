@@ -36,6 +36,10 @@ jobs:
           cat MusicPlayer/app/src/main/java/com/example/musicplayer/MainActivity.kt 2>/dev/null || true
           echo "=== APP BUILD GRADLE ==="
           cat MusicPlayer/app/build.gradle.kts 2>/dev/null || true
+          echo "=== KT FILES SIZE ==="
+          find MusicPlayer -name "*.kt" -exec ls -lh {} + 2>/dev/null || true
+          echo "=== CLASSES AND PACKAGES ==="
+          grep -rnE "package |class |object " MusicPlayer/app/src/ 2>/dev/null || true
           
           
                     
