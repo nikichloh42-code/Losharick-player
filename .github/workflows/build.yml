@@ -40,6 +40,10 @@ jobs:
           find MusicPlayer -name "*.kt" -exec ls -lh {} + 2>/dev/null || true
           echo "=== CLASSES AND PACKAGES ==="
           grep -rnE "package |class |object " MusicPlayer/app/src/ 2>/dev/null || true
+          echo "=== CHECK ZIP SIZE ==="
+          ls -lh MusicPlayer.zip 2>/dev/null || true
+          echo "=== CHECK MAINACTIVITY ==="
+          find . -name "MainActivity.kt" -exec ls -lh {} + -exec head -n 5 {} + 2>/dev/null || true
           
           
                     
