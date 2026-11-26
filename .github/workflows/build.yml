@@ -17,16 +17,8 @@ jobs:
         run: |
           unzip -o MusicPlayer.zip
           python3 -c 'import glob; [open(p,"w").write(open(p).read().replace("Package ","package ")) for p in glob.glob("**/*.kt", recursive=True)]'
-          mkdir -p MusicPlayer/app/src/main/java/com/example/musicplayer
-          cat << 'EOF' > MusicPlayer/app/src/main/java/com/example/musicplayer/App.kt
-          package com.example.musicplayer
-
-          import android.app.Application
-
-          class App : Application()
-          EOF
+          python3 -c 'import glob; [open(p,"w").write(open(p).read().replace("android:name=\".App\"","")) for p in glob.glob("**/AndroidManifest.xml",recursive=True)]'
           
-          python3 -c 'import glob; print("KT:", glob.glob("**/*.kt",recursive=True)); [print("MANIFEST:", p, open(p,errors="ignore").read()) for p in glob.glob("**/AndroidManifest.xml",recursive=True)]'
                     
   
 
