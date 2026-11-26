@@ -16,7 +16,11 @@ jobs:
       - name: Unpack project zip
         run: |
          unzip -o MusicPlayer.zip
-          python3 -c 'import glob; p=glob.glob("**/Data.kt", recursive=True)[0]; open(p,"w").write(open(p).read().replace("Package com.example.musicplayer","package com.example.musicplayer",1))'
+      - name: Unpack project zip
+        run: |
+          unzip -o MusicPlayer.zip
+          python3 -c 'import glob; [open(p,"w").write(open(p).read().replace("Package ","package ")) for p in glob.glob("**/*.kt", recursive=True)]'
+          
   
 
       - name: Set up JDK 17
