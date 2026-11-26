@@ -32,6 +32,10 @@ jobs:
           head -n 30 MusicPlayer/app/src/main/java/com/example/musicplayer/MainActivity.kt 2>/dev/null || true
           echo "=== PACKAGES ==="
           grep -rn -i "package " MusicPlayer/app/src/main/java/ 2>/dev/null || true
+          echo "=== FULL MAIN ACTIVITY ==="
+          cat MusicPlayer/app/src/main/java/com/example/musicplayer/MainActivity.kt 2>/dev/null || true
+          echo "=== APP BUILD GRADLE ==="
+          cat MusicPlayer/app/build.gradle.kts 2>/dev/null || true
           
           
                     
