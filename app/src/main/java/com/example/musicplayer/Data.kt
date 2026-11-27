@@ -61,7 +61,7 @@ object Library {
         )
             ${MediaStore.Audio.Media.IS_MUSIC} != 0 AND ${MediaStore.Audio.Media.DURATION}
         try {
-            ctx.contentResolver.query(m.EXTERNAL_CONTENT_URI, proj, sel, null, null)?.use { c ->
+            ctx.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, proj, sel, null, null)?.use { c ->
                 while (c.moveToNext()) {
                     val artist = c.getString(2)
                     out.add(
