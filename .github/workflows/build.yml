@@ -27,7 +27,22 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build Debug APK
-        
+      - name: Build Debug APK
+        run: |
+          GRADLEW_PATH=$(find . -name "gradlew" | head -n 1)
+          if [ -n "$GRADLEW_PATH" ]; then
+            PROJECT_DIR=$(dirname "$GRADLEW_PATH")
+            cd "$PROJECT_DIR"
+            chmod +x gradlew
+            ./gradlew assembleDebug
+          else
+            PROJECT_DIR=$(find . -maxdepth 4 -name "settings.gradle" -o -name "build.gradle" | head -n 1 | xargs dirname)
+            cd "$PROJECT_DIR"
+            gradle wrapper --gradle-version 8.7
+            chmod +x gradlew
+            ./gradlew assembleDebug
+          fi
+          
       - name: Upload APK artifact
         if: always()
         uses: actions/upload-artifact@v4
