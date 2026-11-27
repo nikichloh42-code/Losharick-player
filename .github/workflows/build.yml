@@ -35,12 +35,18 @@ jobs:
             chmod +x gradlew
             ./gradlew assembleDebug
           else
-            PROJECT_DIR=$(find . -maxdepth 4 -name "settings.gradle" -o -name "build.gradle" | head -n 1 | xargs dirname)
+            SETTINGS_FILE=$(find . -maxdepth 4 \( -name "settings.gradle" -o -name "settings.gradle.kts" \) | head -n 1)
+            if [ -n "$SETTINGS_FILE" ]; then
+              PROJECT_DIR=$(dirname "$SETTINGS_FILE")
+            else
+              PROJECT_DIR="."
+            fi
             cd "$PROJECT_DIR"
             gradle wrapper --gradle-version 8.7
             chmod +x gradlew
             ./gradlew assembleDebug
           fi
+          
           
       - name: Upload APK artifact
         if: always()
