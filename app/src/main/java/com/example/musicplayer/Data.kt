@@ -55,11 +55,11 @@ fun fmtHours(ms: Long): String {
 object Library {
     fun scan(ctx: Context): List<Song> {
         val out = ArrayList<Song>()
-        val m = MediaStore.Audio.Media
+        
         val proj = arrayOf(
-            m._ID, m.TITLE, m.ARTIST, m.ALBUM, m.ALBUM_ID, m.DURATION, m.DATE_ADDED, m.TRACK
+            MediaStore.Audio.Media._ID, MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.ALBUM
         )
-        val sel = "${m.IS_MUSIC} != 0 AND ${m.DURATION} >= 10000"
+            ${MediaStore.Audio.Media.IS_MUSIC} != 0 AND ${MediaStore.Audio.Media.DURATION}
         try {
             ctx.contentResolver.query(m.EXTERNAL_CONTENT_URI, proj, sel, null, null)?.use { c ->
                 while (c.moveToNext()) {
